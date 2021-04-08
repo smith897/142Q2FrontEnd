@@ -27,7 +27,7 @@ export default {
   methods: {
     async getSessions() {
       try {
-        let response = await axios.get("/api/foobar/get-public-sessions.php");
+        let response = await axios.get("api/session/get-available.php");
         this.sessions = response.data;
         this.$root.$data.queue = response.data;
       } catch (error) {

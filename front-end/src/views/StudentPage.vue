@@ -8,7 +8,7 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'; //FIXME Do we need this anymore?
+import HelloWorld from '@/components/HelloWorld.vue';
 import QueueList from '../components/QueueList.vue';
 import GetHelpToolbar from '../components/GetHelpToolbar';
 import axios from 'axios';
@@ -31,7 +31,7 @@ export default {
   methods: {
     async getSessions() {
       try {
-        let response = await axios.get("/api/foobar/get-public-sessions.php");
+        let response = await axios.get("api/session/get-available.php");
         this.sessions = response.data;
         this.$root.$data.queue = response.data;
       } catch (error) {

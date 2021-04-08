@@ -1,4 +1,17 @@
-//Setup
+/*
+  FIXME notes for myself
+
+  So far have just been reworking this part. Made it return dummy
+  data, and then worked on the User and TA models.
+  Put in all the models, then make sure the endpoints are using those.
+  Also modify the paths as necessary.
+  Then go to the front end and make it match.
+
+  I'll probably do the endpoints back and front end one at a time.
+*/
+
+
+//Setup and imports
 const express = require('express');
 const bodyParser = require("body-parser");
 
@@ -11,16 +24,19 @@ app.use(express.json());
 
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/queue', {
-  useNewUrlParser: true
-});
-
 
 
 //Models
-const taSchema = new mongoose.Schema({
-  id: String,
+const userSchema = new mongoose.Schema({
+  net_id: String,
   name: String,
+  blocked: Boolean,
+  section: Number,
+})
+const User = mongoose.model('User', userSchema);
+
+const taSchema = new mongoose.Schema({
+  user: [userSchema],
   zoom_link: String
 })
 const TA = mongoose.model('TA', taSchema);
@@ -37,73 +53,72 @@ const HelpSession = new mongoose.model('HelpSession', helpSessionSchema);
 
 
 //Endpoints
-//Delete operation
 app.delete('/api/session/leave.php/:id', async (req, res) => {
-  try {
-    await HelpSession.deleteOne({
-      id: req.params.id
-    });
-    res.sendStatus(200);
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
-  }
-})
-
-//Read operation
-app.get('/api/foobar/get-public-sessions.php', async (req, res) => {
-  try {
-    let sessions = await HelpSession.find();
-    res.send(sessions);
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
-  }
+  //FIXME Note: This one is untested
+  console.log("Got a leave request. The dummy backend didn't do" +
+    "anything, but a real backend would remove a TA from the session");
+  console.log("Here is the request we received:");
+  console.log(req.body);
+  console.log("\n");
+  res.sendStatus(200);
 });
 
-//Create operation
+app.get('/api/session/get-available.php', async (req, res) => {
+  let userForTa = new User({
+    net_id: 'DummyTANetId',
+    name: "DummyTAName",
+    blocked: false,
+    section: 42
+  })
+  let ta = new TA({
+      user: userForTa,
+      zoom_link: "DummyTaZoomLink.com"
+  })
+  let session1 = new HelpSession({
+      id: 'MYID2',
+      name: 'Dummy Student 1',
+      ta: ta,
+      question: 'Dummy question 1',
+      location: 'Dummy location 1',
+  })
+  let session2 = new HelpSession({
+      id: 'MYID2',
+      name: 'Dummy Student 2',
+      ta: ta,
+      question: 'Dummy question 2',
+      location: 'Dummy location 2',
+  })
+  let sessions = [
+    session1,
+    session2
+  ]
+  res.send(sessions);
+
+  console.log("Got a get-available request. The dummy backend sent " +
+    "back this fake response:");
+  console.log(sessions);
+  console.log("\n");
+});
+
 app.put('/api/session/create.php', async (req, res) => {
-  try {
-    const session = new HelpSession({
-      id: req.body.id,
-      name: req.body.name,
-      ta: null,
-      question: req.body.question,
-      location: req.body.location
-    });
-    await session.save();
-    res.send(session);
-  } catch(error) {
-    console.log(error);
-    res.sendStatus(500);
-  }
+  console.log("Got a create request. The dummy backend didn't do " +
+    "anything, but a real backend would create a new help session.");
+  console.log("Here is the request we received:");
+  console.log(req.body);
+  console.log("\n");
+  res.sendStatus(200);
 })
 
-//Update operation
 app.put('/api/session/join.php/', async (req, res) => {
-  try {
-    let session = await HelpSession.findOne({id: req.body.StudentID});
-
-    //TA database won't be altered through this website, the back end will just
-    //get information from it, so for this project I'll just use a dummy TA
-    let ta = new TA({
-      id: req.body.TaID,
-      name: "TestTA",
-      zoom_link: "join.me"
-    })
-    //let ta = await TA.findOne({id: req.body.TaID}); //Real one
-    ta.save();
-
-    session.ta = ta;
-    session.markModified('ta');
-    session.save();
-    res.sendStatus(200);
-
-  } catch(error) {
-    console.log(error);
-    res.sendStatus(500);
-  }
+  console.log("Got a join request. The dummy backend didn't do" +
+    "anything, but a real backend would add a TA to the session");
+  console.log("Here is the request we received:");
+  console.log(req.body);
+  console.log("\n");
+  res.sendStatus(200);
 });
 
-//Finally, start the server
-app.listen(3001, () => console.log('Server listening on port 3001!'));
+
+
+//Start the server
+app.listen(3001, () => console.log('Server listening on port 3001!\n'));
