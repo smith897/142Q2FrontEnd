@@ -8,10 +8,11 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import HelloWorld from '@/components/HelloWorld.vue'; //FIXME Do we need this anymore?
 import QueueList from '../components/QueueList.vue';
 import GetHelpToolbar from '../components/GetHelpToolbar';
 import axios from 'axios';
+
 export default {
   name: 'StudentPage',
   data() {
