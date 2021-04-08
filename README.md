@@ -6,5 +6,7 @@ Front end of the queue, with a simple back end using Node, and a mongoose db. I'
 ## Starting the Website
 You'll need to run the front end and the back end. Go into the front end directory in a terminal and run "npm run serve". It will print on the screen where you can view the website. To run the back end, go into the back end director and run "node server.js". You'll probably need to do some setup first to get it to work, google how to install vue cli and node to get it to work.
 
+Each time you change the front end, you'll need to run "npm run build".
+ 
 ## Link
 http://creative4.skylerjsmith.com/#/
