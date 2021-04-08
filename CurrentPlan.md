@@ -2,6 +2,7 @@ These are old notes I left for myself, I thought I'd leave them for anyone else 
 
 
 Notes/Questions for after the project:
+
 ->No way to finish helping someone, should have a finish button that asks whether to count it or not
 
 ->How on earth can I update the dang toolbar? Might want to look up a way to have
