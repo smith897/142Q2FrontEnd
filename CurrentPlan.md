@@ -21,7 +21,3 @@ Notes/Questions for after the project:
  -->That'd also fix the weird reloading stuff. Notice any time you interact with the
    website it reloads, which looks kind of ugly.
 
-
-
-
-Put /api/ before the api calls, and try again
