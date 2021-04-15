@@ -54,12 +54,12 @@ export default {
     },
     async joinQueue() {
       try {
-        await axios.put("/api/session/create.php/", {
-          id: this.$root.$data.myID,
-          name: this.$root.$data.myName,
-          ta: null,
-          question: this.question,
-          location: "Test" //TODO set to actual location
+        await axios.post("/api/session/create.php/", {
+          student_netid: this.$root.$data.myID,
+          question_text: this.question,
+          location: "Test", //TODO add functionality
+          pair_programmer: null, //TODO add functionality
+          ta_netid: null,
         });
       } catch (error) {
         console.log(error);
@@ -67,8 +67,7 @@ export default {
     },
     async leaveQueue() {
       try {
-        let testID = this.$root.$data.myID;
-        await axios.delete('/api/session/leave.php/' + testID, {
+        await axios.delete('/api/session/leave.php', {
           id: this.$root.$data.myID,
         });
       } catch (error) {

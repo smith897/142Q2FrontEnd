@@ -27,7 +27,9 @@ export default {
   methods: {
     async getSessions() {
       try {
-        let response = await axios.get("api/session/get-available.php");
+        let response = await axios.post("api/session/get-available.php", {
+          netid: this.$root.$data.myID
+        });
         this.sessions = response.data;
         this.$root.$data.queue = response.data;
       } catch (error) {

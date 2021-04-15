@@ -53,8 +53,8 @@ const HelpSession = new mongoose.model('HelpSession', helpSessionSchema);
 
 
 //Endpoints
-app.delete('/api/session/leave.php/:id', async (req, res) => {
-  //FIXME Note: This one is untested
+app.post('/api/session/leave.php', async (req, res) => {
+  //Note: This one is untested
   console.log("Got a leave request. The dummy backend didn't do" +
     "anything, but a real backend would remove a TA from the session");
   console.log("Here is the request we received:");
@@ -63,7 +63,7 @@ app.delete('/api/session/leave.php/:id', async (req, res) => {
   res.sendStatus(200);
 });
 
-app.get('/api/session/get-available.php', async (req, res) => {
+app.post('/api/session/get-available.php', async (req, res) => {
   let userForTa = new User({
     net_id: 'DummyTANetId',
     name: "DummyTAName",
@@ -94,13 +94,14 @@ app.get('/api/session/get-available.php', async (req, res) => {
   ]
   res.send(sessions);
 
-  console.log("Got a get-available request. The dummy backend sent " +
-    "back this fake response:");
+  console.log("Got a get-available request with this body:");
+  console.log(req.body);
+  console.log("The dummy backend sent back this fake response:");
   console.log(sessions);
   console.log("\n");
 });
 
-app.put('/api/session/create.php', async (req, res) => {
+app.post('/api/session/create.php', async (req, res) => {
   console.log("Got a create request. The dummy backend didn't do " +
     "anything, but a real backend would create a new help session.");
   console.log("Here is the request we received:");
@@ -109,8 +110,8 @@ app.put('/api/session/create.php', async (req, res) => {
   res.sendStatus(200);
 })
 
-app.put('/api/session/join.php/', async (req, res) => {
-  console.log("Got a join request. The dummy backend didn't do" +
+app.post('/api/session/join.php', async (req, res) => {
+  console.log("Got a join request. The dummy backend didn't do " +
     "anything, but a real backend would add a TA to the session");
   console.log("Here is the request we received:");
   console.log(req.body);

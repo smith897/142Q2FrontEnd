@@ -83,9 +83,9 @@ export default {
   methods: {
     async updateHelping() {
       try {
-        await axios.put("/api/session/join.php/", {
-          StudentID: this.id,
-          TaID: this.$root.$data.myID
+        await axios.post("/api/session/join.php", {
+          netid: this.$root.$data.myID,
+          session: "Test ID" //TODO: Add functionality for session IDs (currently uses student netids)
         });
       } catch (error) {
         console.log(error);
