@@ -1,4 +1,4 @@
-These are old notes I left for myself, I thought I'd leave them for anyone else who works on this project.
+These are old notes I left for myself, I don't know if they're relevant anymore, but I thought I'd leave them just in case.
 
 
 Notes/Questions for after the project:
