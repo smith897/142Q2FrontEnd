@@ -1,16 +1,3 @@
-/*
-  FIXME notes for myself
-
-  So far have just been reworking this part. Made it return dummy
-  data, and then worked on the User and TA models.
-  Put in all the models, then make sure the endpoints are using those.
-  Also modify the paths as necessary.
-  Then go to the front end and make it match.
-
-  I'll probably do the endpoints back and front end one at a time.
-*/
-
-
 //Setup and imports
 const express = require('express');
 const bodyParser = require("body-parser");
