@@ -62,7 +62,6 @@ app.post('/api/session/leave.php', async (req, res) => {
   console.log("\n");
   res.sendStatus(200);
 });
-
 app.post('/api/session/get-available.php', async (req, res) => {
   let userForTa = new User({
     net_id: 'DummyTANetId',
@@ -100,7 +99,6 @@ app.post('/api/session/get-available.php', async (req, res) => {
   console.log(sessions);
   console.log("\n");
 });
-
 app.post('/api/session/create.php', async (req, res) => {
   console.log("Got a create request. The dummy backend didn't do " +
     "anything, but a real backend would create a new help session.");
@@ -109,7 +107,6 @@ app.post('/api/session/create.php', async (req, res) => {
   console.log("\n");
   res.sendStatus(200);
 })
-
 app.post('/api/session/join.php', async (req, res) => {
   console.log("Got a join request. The dummy backend didn't do " +
     "anything, but a real backend would add a TA to the session");
