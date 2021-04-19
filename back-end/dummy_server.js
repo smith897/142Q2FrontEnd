@@ -79,7 +79,6 @@ app.post('/api/session/get-available.php', async (req, res) => {
     session2
   ]
   res.send(sessions);
-
   console.log("Got a get-available request with this body:");
   console.log(req.body);
   console.log("The dummy backend sent back this fake response:");
