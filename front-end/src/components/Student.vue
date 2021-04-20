@@ -1,28 +1,28 @@
 <template>
 <div class="wrapper">
-  <div class="student" v-bind:class="{beingHelped: getIsHelped, isMe: getIsMe, isHelpedByMe: getIsHelpedByMe}">
+  <div class="session" v-bind:class="{beingHelped: getIsHelped, isMe: getIsMe, isHelpedByMe: getIsHelpedByMe}">
     <div class="firstRowHolder">
       <div class="positionHolder">
-        <p class="position">{{position}}</p>
+        <p class="position">{{1}}</p> <!-- TODO set to real position -->
       </div>
       <div class="imageHolder">
-        <img class="image" :src="'/images/Chong.png'"> <!-- FIXME set to real image or delete -->
+        <img class="image" :src="'/images/Chong.png'"> <!-- TODO set to real image (or delete) -->
       </div>
       <div class="nameHolder">
-        <h2 class="name">{{name}}</h2>
+        <h2 class="name">{{session.student.name}}</h2>
       </div>
     </div>
     <div class="secondRowHolder">
       <div class="questionHolder">
         <h3 class="question">Question:</h3>
-        <p class="questionText">{{question}}</p>
+        <p class="questionText">{{session.question}}</p>
       </div>
       <div class="helpInfoHolder">
         <div class="timeWaitingHolder">
-          <p>Time waiting: {{timeWating}} min</p>
+          <p>Time waiting: {{session.enqueue_time}} min</p>
         </div>
         <div class="helperHolder">
-          <p>Being helped by: {{helper}}</p>
+          <p>Being helped by: {{getHelper}}</p>
         </div>
       </div>
       <div class="helpButtonHolder" v-if="fromTA">
@@ -36,16 +36,10 @@
 <script>
 import axios from 'axios';
 export default {
-  name: 'Student',
+  name: 'Session',
   props: {
-    name: String,
-    id: String,
-    position: Number,
-    imagePath: String,
-    question: String,
-    timeWating: Number, //FIXME incorporate times into API and calculate
     fromTA: Boolean,
-    ta: Array
+    session: Object
   },
   data() {
     return {
@@ -57,14 +51,29 @@ export default {
     }
   },
   computed: {
+    getHelper() {
+      if (this.session.ta.length === 0) {
+        return "No one"
+      }
+      else {
+        let response = "";
+        for (var i = 0; i < this.session.ta.length; i++) {
+          response += this.session.ta[i];
+          if (i < this.session.ta.length - 1) {
+            response += ", ";
+          }
+        }
+        return response;
+      }
+    },
     getIsHelped() {
-      return !(this.ta === null);
+      return !(this.session.ta.length === 0);
     },
     getIsHelpedByMe() {
       if (!this.fromTA) return false;
-      if (this.ta != null) {
-        for (var i = 0; i < this.ta.length; i++) {
-          if (this.ta[i].id === this.$root.$data.myID) {
+      if (this.session.ta.length != 0) {
+        for (var i = 0; i < this.session.ta.length; i++) {
+          if (this.session.ta.user.net_id === this.$root.$data.myID) {
             return true;
           }
         }
@@ -73,7 +82,7 @@ export default {
     },
     getIsMe() {
       if (this.fromTA) return false;
-      else if (this.id === this.$root.$data.myID) {
+      else if (this.session.student.net_id === this.$root.$data.myID) {
         return true;
       } else {
         return false;
@@ -104,7 +113,7 @@ export default {
   margin: 2em;
 }
 
-.student {
+.session {
   border-width: medium;
   border-style: solid;
   border-color: #A9A9A9;

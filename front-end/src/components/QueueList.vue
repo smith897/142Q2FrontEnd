@@ -2,8 +2,8 @@
 <div class="wrapper">
   <h2 class="title">Help Queue:</h2>
   <div class="students">
-    <div class="student" v-for="student in queue" :key="student.id">
-      <Student :name="student.name" :id="student.id" :position="student.position" :imagePath="student.image" :question="student.question" :timeWating="student.timeWaiting" :ta="student.ta" :fromTA='fromTA' />
+    <div class="student" v-for="session in queue" :key="session.uniq_id">
+      <Student :session="session" :fromTA='fromTA' />
     </div>
   </div>
 </div>

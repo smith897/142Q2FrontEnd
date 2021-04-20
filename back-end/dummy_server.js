@@ -23,17 +23,24 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 const taSchema = new mongoose.Schema({
-  user: [userSchema],
+  user: userSchema,
   zoom_link: String
 })
 const TA = mongoose.model('TA', taSchema);
 
 const helpSessionSchema = new mongoose.Schema({
-  id: String,
-  name: String,
-  ta: [taSchema],
+  uniq_id: String,
+  student: userSchema,
+  ta: [],
   question: String,
-  location: String
+  location: String,
+  public_to: [], //TODO: Note on documentation: Needs its own class [(id, timestamp), ...]
+  enqueue_time: String,
+  start_time: String,
+  end_time: String,
+  join_log: [],
+  doesCountAgainstLimit: Boolean,
+  chat_log: [] //TODO: Note on documentation: Needs its own class [{timestamp, user, message}]
 })
 const HelpSession = new mongoose.model('HelpSession', helpSessionSchema);
 
@@ -50,33 +57,32 @@ app.post('/api/session/leave.php', async (req, res) => {
   res.sendStatus(200);
 });
 app.post('/api/session/get-available.php', async (req, res) => {
-  let userForTa = new User({
-    net_id: 'DummyTANetId',
-    name: "DummyTAName",
+  let dummyUser = new User({
+    net_id: 'DummyNetId',
+    name: "DummyName",
     blocked: false,
     section: 42
   })
   let ta = new TA({
-      user: userForTa,
+      user: dummyUser,
       zoom_link: "DummyTaZoomLink.com"
   })
-  let session1 = new HelpSession({
-      id: 'MYID2',
-      name: 'Dummy Student 1',
-      ta: ta,
+  let dummySession = new HelpSession({
+      uniq_id: 'MYID',
+      student: dummyUser,
+      ta: [],
       question: 'Dummy question 1',
       location: 'Dummy location 1',
-  })
-  let session2 = new HelpSession({
-      id: 'MYID2',
-      name: 'Dummy Student 2',
-      ta: ta,
-      question: 'Dummy question 2',
-      location: 'Dummy location 2',
+      public_to: [],
+      enqueue_time: 'Dummy enqueue_time',
+      start_time: 'Dummy start_time',
+      end_time: 'Dummy end_time',
+      join_log: [],
+      doesCountAgainstLimit: true,
+      chat_log: []
   })
   let sessions = [
-    session1,
-    session2
+    dummySession
   ]
   res.send(sessions);
   console.log("Got a get-available request with this body:");
