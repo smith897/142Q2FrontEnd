@@ -1,5 +1,8 @@
 # 142 Q2 Front End
 
+## FIXME Note for myself
+The endpoint for /api/session/get-available.php doesn't match the Help Center Documentation. It currently returns all the details about available sessions in one reponse. Have it return session IDs and have the other listed call return the details about them.
+
 ## Overview
 Front end of the queue written using Vue.js, with a simple dummy back end.
 
@@ -17,10 +20,8 @@ The 3 main pages are in the front end under src/views. Those define each page an
 
 You'll see that the HTML at the top of the Vue files defines the layout of the page, the javascript in the middle of the files defines the behavior of the page, and the CSS at the bottom of the files define the style of the page. The HTML also indicates what javascript code should be run when you interact with certain elements of the page.
 
-## Progress on the code
-Currently, the front end supports the 4 api endpoints found in the dummy server. However, the endpoint for /api/session/get-available.php doesn't match the Help Center Documentation. It currently returns all the details about available sessions in one reponse.
-
 ## Going forward
+Currently, the front end supports the 4 api endpoints found in the dummy server.
 
 From here, I would think the best plan of attack is to pick a piece of the functionality that isn't yet supported, put it into the page using the HTML and CSS, and then define behavior for it (including API calls) in the javascript, and then repeat that process until it has complete functionality.
 
