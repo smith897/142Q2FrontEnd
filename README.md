@@ -8,8 +8,6 @@ You'll need to run the front end and the back end. Go into the front end directo
 
 The output from the back end will appear in the terminal. You can add the -rq and -rs flags to have it also print the requests and/or responses. Open developer tools and the console in your browser to see output from the front end (ctrl + shift + c in chrome).
 
-Each time you change the front end, you'll possibly need to run "npm run build".
-
 ## Understanding the code
 You'll need a background in Vue in order to understand everything going on. After taking CS260 you should know everything you need.
 
