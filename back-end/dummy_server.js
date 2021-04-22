@@ -11,6 +11,16 @@ app.use(express.json());
 
 const mongoose = require('mongoose');
 
+//Check flags
+let printRequests = false;
+if (process.argv.includes('-rq')) {
+  printRequests = true;
+}
+let printResponses = false;
+if (process.argv.includes('-rs')) {
+  printResponses = true;
+}
+
 
 //Models
 const userSchema = new mongoose.Schema({
@@ -47,13 +57,18 @@ const HelpSession = new mongoose.model('HelpSession', helpSessionSchema);
 
 //Endpoints
 app.post('/api/session/leave.php', async (req, res) => {
-  //Note: This one is untested
-  console.log("Got a leave request. The dummy backend didn't do" +
-    "anything, but a real backend would remove a TA from the session");
-  console.log("Here is the request we received:");
-  console.log(req.body);
-  console.log("\n");
+  //Note: This endpoint is untested
   res.sendStatus(200);
+  console.log("Got a leave request! The dummy backend didn't do" +
+    "anything, but a real backend would remove a TA from the session");
+  if (printRequests) {
+    console.log("Here's the request:");
+    console.log(req.body);
+  }
+  if (printResponses) {
+    console.log("No response was sent back.");
+  }
+  console.log("\n");
 });
 app.post('/api/session/get-available.php', async (req, res) => {
   let sessions = [
@@ -61,10 +76,15 @@ app.post('/api/session/get-available.php', async (req, res) => {
     "DummySessionId2"
   ]
   res.send(sessions);
-  console.log("Got a get-available request with this body:");
-  console.log(req.body);
-  console.log("The dummy backend sent back this fake response:");
-  console.log(sessions);
+  console.log("Got a get-available request!");
+  if (printRequests) {
+    console.log("Here's the request:");
+    console.log(req.body);
+  }
+  if (printResponses) {
+    console.log("Here's our response:");
+    console.log(sessions);
+  }
   console.log("\n");
 });
 app.post('/api/session/get-details.php', async (req, res) => {
@@ -93,27 +113,43 @@ app.post('/api/session/get-details.php', async (req, res) => {
       chat_log: []
   })
   res.send(dummySession);
-  console.log("Got a get-details request with this body:");
-  console.log(req.body);
-  console.log("The dummy backend sent back this fake response:");
-  console.log(dummySession);
+  console.log("Got a get-details request!");
+  if (printRequests) {
+    console.log("Here's the request:");
+    console.log(req.body);
+  }
+  if (printResponses) {
+    console.log("Here's our response:");
+    console.log(dummySession);
+  }
   console.log("\n");
 })
 app.post('/api/session/create.php', async (req, res) => {
-  console.log("Got a create request. The dummy backend didn't do " +
+  console.log("Got a create request! The dummy backend didn't do " +
     "anything, but a real backend would create a new help session.");
-  console.log("Here is the request we received:");
-  console.log(req.body);
-  console.log("\n");
   res.sendStatus(200);
+  if (printRequests) {
+    console.log("Here is the request:");
+    console.log(req.body);
+  }
+  if (printResponses) {
+    console.log("No response was sent back.");
+  }
+  console.log("\n");
+
 });
 app.post('/api/session/join.php', async (req, res) => {
-  console.log("Got a join request. The dummy backend didn't do " +
+  console.log("Got a join request! The dummy backend didn't do " +
     "anything, but a real backend would add a TA to the session");
-  console.log("Here is the request we received:");
-  console.log(req.body);
-  console.log("\n");
   res.sendStatus(200);
+  if (printRequests) {
+    console.log("Here is the request we received:");
+    console.log(req.body);
+  }
+  if (printResponses) {
+    console.log("No response was sent back.");
+  }
+  console.log("\n");
 });
 
 
