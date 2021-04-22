@@ -1,17 +1,14 @@
 # 142 Q2 Front End
 
-## FIXME Note for myself
-The endpoint for /api/session/get-available.php doesn't match the Help Center Documentation. It currently returns all the details about available sessions in one reponse. Have it return session IDs and have the other listed call return the details about them.
-
 ## Overview
 Front end of the queue written using Vue.js, with a simple dummy back end.
 
 ## Starting the website
 You'll need to run the front end and the back end. Go into the front end directory in a terminal and run "npm run serve". It will print on the screen where you can view the website. To run the back end, go into the back end directory and run "node server.js". You'll probably need to do some setup first to get it to work, google how to install the vue cli and node.js.
 
-The output from the back end will appear in the terminal. Open developer tools and the console in your browser to see output from the front end (ctrl + shift + c in chrome).
+The output from the back end will appear in the terminal. You can add the -rq and -rs flags to have it also print the requests and/or responses. Open developer tools and the console in your browser to see output from the front end (ctrl + shift + c in chrome).
 
-Each time you change the front end, you'll possibly need to run "npm run build". I think.
+Each time you change the front end, you'll possibly need to run "npm run build".
 
 ## Understanding the code
 You'll need a background in Vue in order to understand everything going on. After taking CS260 you should know everything you need.
