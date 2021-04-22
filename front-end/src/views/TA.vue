@@ -21,17 +21,27 @@ export default {
   },
   data() {
     return {
-      sessions: [],
+      sessionNumbers: [],
+      sessions: []
     }
   },
   methods: {
-    async getSessions() {
+    async getSessions() { //FIXME This is copied and pasted from StudentPage.vue, can I avoid duplicate code somehow? Maybe somehow move this to main.js?
       try {
-        let response = await axios.post("api/session/get-available.php", {
+        let availableResponse = await axios.post("api/session/get-available.php", {
           netid: this.$root.$data.myID
         });
-        this.sessions = response.data;
-        this.$root.$data.queue = response.data;
+        this.sessionNumbers = availableResponse.data;
+        this.sessions = [];
+        this.$root.$data.queue = [];
+        for (var i = 0; i < this.sessionNumbers.length; i++) {
+          let detailsResponse = await axios.post("/api/session/get-details.php", {
+            netid: this.$root.$data.myID,
+            session: this.sessionNumbers[i]
+          });
+          this.sessions.push(detailsResponse.data);
+          this.$root.$data.queue.push(detailsResponse.data);
+        }
       } catch (error) {
         console.log(error);
       }

@@ -12,7 +12,6 @@ app.use(express.json());
 const mongoose = require('mongoose');
 
 
-
 //Models
 const userSchema = new mongoose.Schema({
   net_id: String,
@@ -57,6 +56,18 @@ app.post('/api/session/leave.php', async (req, res) => {
   res.sendStatus(200);
 });
 app.post('/api/session/get-available.php', async (req, res) => {
+  let sessions = [
+    "DummySessionId1",
+    "DummySessionId2"
+  ]
+  res.send(sessions);
+  console.log("Got a get-available request with this body:");
+  console.log(req.body);
+  console.log("The dummy backend sent back this fake response:");
+  console.log(sessions);
+  console.log("\n");
+});
+app.post('/api/session/get-details.php', async (req, res) => {
   let dummyUser = new User({
     net_id: 'DummyNetId',
     name: "DummyName",
@@ -81,16 +92,13 @@ app.post('/api/session/get-available.php', async (req, res) => {
       doesCountAgainstLimit: true,
       chat_log: []
   })
-  let sessions = [
-    dummySession
-  ]
-  res.send(sessions);
-  console.log("Got a get-available request with this body:");
+  res.send(dummySession);
+  console.log("Got a get-details request with this body:");
   console.log(req.body);
   console.log("The dummy backend sent back this fake response:");
-  console.log(sessions);
+  console.log(dummySession);
   console.log("\n");
-});
+})
 app.post('/api/session/create.php', async (req, res) => {
   console.log("Got a create request. The dummy backend didn't do " +
     "anything, but a real backend would create a new help session.");
@@ -98,7 +106,7 @@ app.post('/api/session/create.php', async (req, res) => {
   console.log(req.body);
   console.log("\n");
   res.sendStatus(200);
-})
+});
 app.post('/api/session/join.php', async (req, res) => {
   console.log("Got a join request. The dummy backend didn't do " +
     "anything, but a real backend would add a TA to the session");
