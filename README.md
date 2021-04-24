@@ -4,7 +4,7 @@
 Front end of the queue written using Vue.js, with a simple dummy back end.
 
 ## Starting the website
-You'll need to run the front end and the back end. Go into the front end directory in a terminal and run "npm run serve". It will print on the screen where you can view the website. To run the back end, go into the back end directory and run "node server.js". You'll probably need to do some setup first to get it to work, google how to install the vue cli and node.js.
+You'll need to run the front end and the back end. Go into the front end directory in a terminal and run "npm run serve". It will print on the screen where you can view the website. To run the back end, go into the back end directory and run "node dummy_server.js". You'll probably need to do some setup first to get it to work, google how to install the vue cli and node.js.
 
 The output from the back end will appear in the terminal. You can add the -rq and -rs flags to have it also print the requests and/or responses. Open developer tools and the console in your browser to see output from the front end (ctrl + shift + c in chrome).
 
